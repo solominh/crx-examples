@@ -1,0 +1,12 @@
+{
+  "name": "Tabber",
+  "manifest_version": 2,
+  "version": "1.0",
+  "description": "Redirect newtab to google.com",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "permissions": [
+    "tabs"
+  ]
+}
