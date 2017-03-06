@@ -1,70 +1,63 @@
-(function() {
+// Copyright 2013 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
 
-    var application = 'com.my_company.my_application';
-    var port = null;
+var port = null;
 
-    document.getElementById('connect').addEventListener('click', function() {
-        log('chrome.runtime.connectNative')
+var getKeys = function(obj){
+   var keys = [];
+   for(var key in obj){
+      keys.push(key);
+   }
+   return keys;
+}
 
-        port = chrome.runtime.connectNative(application);
 
-        port.onMessage.addListener(log);
+function appendMessage(text) {
+  document.getElementById('response').innerHTML += "<p>" + text + "</p>";
+}
 
-        port.onDisconnect.addListener(function(e) {
-            log('unexpected disconnect');
+function updateUiState() {
+  if (port) {
+    document.getElementById('connect-button').style.display = 'none';
+    document.getElementById('input-text').style.display = 'block';
+    document.getElementById('send-message-button').style.display = 'block';
+  } else {
+    document.getElementById('connect-button').style.display = 'block';
+    document.getElementById('input-text').style.display = 'none';
+    document.getElementById('send-message-button').style.display = 'none';
+  }
+}
 
-            port = null;
-        });
-    });
+function sendNativeMessage() {
+  message = {"text": document.getElementById('input-text').value};
+  port.postMessage(message);
+  appendMessage("Sent message: <b>" + JSON.stringify(message) + "</b>");
+}
 
-    document.getElementById('disconnect').addEventListener('click', function() {
-        log('port.disconnect');
-        port.disconnect(); // this doesn't seem to trigger the onDisconnect event
-        port = null;
-    });
+function onNativeMessage(message) {
+  appendMessage("Received message: <b>" + JSON.stringify(message) + "</b>");
+}
 
-    var examples = {
-        ping: { ping: 'pong' },
-        readdir: { readdir: '/' },
-        subscribe: { subscribe: 'time' },
-        unsubscribe: { unsubscribe: 'time' }
-    };
+function onDisconnected() {
+  appendMessage("Failed to connect: " + chrome.runtime.lastError.message);
+  port = null;
+  updateUiState();
+}
 
-    Array.prototype.slice.call(document.querySelectorAll('[data-example]')).forEach(function(example) {
-        example.addEventListener('click', function() {
-            document.getElementById('msg').value = JSON.stringify(examples[example.dataset.example]);
-        });
-    });
+function connect() {
+  var hostName = "com.google.chrome.example.echo";
+  appendMessage("Connecting to native messaging host <b>" + hostName + "</b>")
+  port = chrome.runtime.connectNative(hostName);
+  port.onMessage.addListener(onNativeMessage);
+  port.onDisconnect.addListener(onDisconnected);
+  updateUiState();
+}
 
-    document.getElementById('send').addEventListener('click', function() {
-        var json = document.getElementById('msg').value;
-        var msg;
-
-        try {
-            msg = JSON.parse(json);
-        } catch (err) {
-            return log('invalid JSON: ' + json);
-        }
-
-        if (port) {
-            log('port.postMessage');
-            port.postMessage(msg);
-        } else {
-            log('chrome.runtime.sendNativeMessage');
-            chrome.runtime.sendNativeMessage(application, msg, log);
-        }
-    });
-
-    document.getElementById('clear').addEventListener('click', function() {
-        document.getElementById('log').innerHTML = '';
-    });
-
-    function log(msg) {
-        console.log(msg);
-
-        var e = document.createElement('pre');
-        e.appendChild(document.createTextNode(typeof msg === 'object' ? JSON.stringify(msg) : msg));
-        document.getElementById('log').appendChild(e);
-    }
-
-})();
+document.addEventListener('DOMContentLoaded', function () {
+  document.getElementById('connect-button').addEventListener(
+      'click', connect);
+  document.getElementById('send-message-button').addEventListener(
+      'click', sendNativeMessage);
+  updateUiState();
+});
