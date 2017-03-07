@@ -1,7 +1,7 @@
 var selectedText = "";
 
 // RECEIVE MESSAGE FROM CONTENT SCRIPT
-chrome.extension.onRequest.addListener(function (request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   switch (request.message) {
     case 'SELECT_TEXT': {
       window.selectedText = request.data

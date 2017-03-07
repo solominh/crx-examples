@@ -5,7 +5,7 @@ document.addEventListener('mouseup', function (event) {
   // if (selectedText.length <= 0) return;
 
   // Send message to extension
-  chrome.extension.sendRequest({
+  chrome.runtime.sendMessage({
     'message': 'SELECT_TEXT',
     'data': selectedText
   }, function (response) {
