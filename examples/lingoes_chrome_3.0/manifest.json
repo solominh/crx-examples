@@ -1,14 +1,25 @@
 {
-"update_url": "https://clients2.google.com/service/update2/crx",
-
-  "content_scripts": [ {
-    "all_frames": true,
-    "match_about_blank": true,
-    "js": [ "lingoes_chrome.js" ],
-		"run_at": "document_start",
-    "matches": [ "http://*/*", "https://*/*", "file:///*" ]
-  } ],
-  "background": {"scripts": ["background.js"]},
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "match_about_blank": true,
+      "js": [
+        "lingoes_chrome.js"
+      ],
+      "run_at": "document_start",
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "file:///*"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
   "default_locale": "en",
   "description": "__MSG_app_description__",
   "homepage_url": "http://www.lingoes.net/",
@@ -23,6 +34,10 @@
   "name": "__MSG_app_name__",
   "short_name": "LingoesTCE",
   "minimum_chrome_version": "33.0",
-  "permissions": [ "nativeMessaging", "http://*/*", "https://*/*" ],
+  "permissions": [
+    "nativeMessaging",
+    "http://*/*",
+    "https://*/*"
+  ],
   "version": "3.0"
 }

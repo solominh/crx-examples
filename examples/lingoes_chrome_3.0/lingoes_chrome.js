@@ -46,6 +46,10 @@ function lingoes_get_capture_text(x, y) {
         eo++;
         n2++;
       }
+      // const gap = a.endContainer.data.length - eo;
+      // const maxgap = gap <= maxchar ? gap : maxchar;
+      // eo += maxgap;
+
       g.setEnd(a.endContainer, eo);
     }
 
