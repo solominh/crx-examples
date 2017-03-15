@@ -29,8 +29,17 @@ function updateQuote(post) {
 
 let URL = 'http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1';
 
+var myHeaders = new Headers();
+myHeaders.append('pragma', 'no-cache');
+myHeaders.append('cache-control', 'no-cache');
+
+var options = {
+  method: 'GET',
+  headers: myHeaders,
+};
+
 document.addEventListener("DOMContentLoaded", function () {
-  fetch(URL)
+  fetch(URL, options)
     .then(status)
     .then(json)
     .then(function (data) {
@@ -41,5 +50,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
+// OR USE AJAX
+// $.ajax({
+//   url: "demo_test.txt",
+//   success: function (result) {
+//     $("#div1").html(result);
+//   },
+//   cache:false
+// });
 
 
