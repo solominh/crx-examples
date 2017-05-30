@@ -1,0 +1,29 @@
+{
+   "background": {
+      "page": "background.html"
+   },
+   "browser_action": {
+      "default_icon": "images/fbdown_icon.png",
+      "default_popup": "popup.html",
+      "default_title": "__MSG_extension_hint__"
+   },
+   "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'",
+   "default_locale": "en",
+   "description": "FBDown Video Downloader. Best Video Downloader Extension. Downloads most popular media types.",
+   "icons": {
+      "128": "images/icon_128.png",
+      "16": "images/icon_16.png",
+      "24": "images/icon_24.png",
+      "32": "images/icon_32.png",
+      "48": "images/icon_48.png",
+      "64": "images/icon_64.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAkL56eJt+FcM50U9vdr9gwdKeTh7vYpf/p22eIHT4JkYB/9+FkW8kj3hguxbx/Mu2YJ6e2D8FMWceARoIx2D6UKXOz615du0XNEmYnz4fstTNHI0ohLluxncgyoMMCKtJc0lgT37eoSBR+7Tjzplyey4SpO6nTc1wkXanPbZZ3Z37FNaUeXIy7dwbyFhAfMXAb1wRt7ohKfH/Z4rAlKBYihBcvt5y9ub6MlMrSDjzlcVX4TGuq0ot6RHrPY+GYCHlSomTEHGeoBFPRs5lVug7+F/UL4+3wt+BYPScj6i5ApFx5UYuLwXtiA57+u+8n6+vtWpLoWYp2bDVm+HEzkWruwIDAQAB",
+   "manifest_version": 2,
+   "name": "FBDown Video Downloader",
+   "permissions": [ "tabs", "webRequest", "http://*/*", "https://*/*", "cookies", "webRequestBlocking", "unlimitedStorage", "storage", "management", "downloads" ],
+   "short_name": "FBDown Video Downloader",
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "4.0.3",
+   "web_accessible_resources": [ "*" ]
+}
